@@ -3,8 +3,8 @@ pipeline {
     environment {
         GITNAME = 'HyunmoBae'
         GITMAIL = 'tsi0520@naver.com'
-        GITWEBADD = 'https://github.com/HyunmoBae/bookRecommend.git'
-        GITSSHADD = 'git@github.com:HyunmoBae/bookRecommend.git'
+        GITWEBADD = 'https://github.com/HyunmoBae/bookstore.git'
+        GITSSHADD = 'git@github.com:HyunmoBae/bookstore.git'
         GITCREDENTIAL = 'git_cre'
         AWSCREDENTIAL = 'aws_cre'
         AWSECR = '178020491921.dkr.ecr.ap-northeast-2.amazonaws.com/reservation'
