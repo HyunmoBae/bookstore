@@ -6,6 +6,6 @@
 
 초기배포 테스트
 
-## 18, latest
+## 18(latest)
 
 README.md 추가
