@@ -10,6 +10,10 @@
 
 테스트입니다.
 
-## 3, latest
+## 3
 
 README.md 추가
+
+## 4(latest)
+
+reservation.py, Dockerfile 수정
