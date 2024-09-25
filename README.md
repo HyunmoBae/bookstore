@@ -26,6 +26,10 @@ Jenkinsfile 수정 (deploy 레포지토리 push)
 
 test7
 
-## 8(latest)
+## 8
 
 test8
+
+## 9(latest)
+
+test9
