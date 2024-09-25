@@ -26,6 +26,10 @@ reservation.py, Dockerfile 수정
 
 Jenkins Email추가
 
-## 7(latest)
+## 7
 
 테스트7
+
+## 8(latest)
+
+테스트8
