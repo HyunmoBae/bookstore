@@ -18,6 +18,14 @@ README.md 추가
 
 reservation.py, Dockerfile 수정
 
-## 5(latest)
+## 5
 
 테스트5
+
+## 6
+
+Jenkins Email추가
+
+## 7(latest)
+
+테스트7
