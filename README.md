@@ -58,9 +58,7 @@ Global -> Add credential -> Username with password에서 git_cre 생성
 Branch Sources -> github
 credentials, repository URL 지정
 -> 한개의 github repository에서 각 서비스들을 브랜치로 분리해서 관리할 것이다. (recommend, reservation ...)
--> github에서 push된 브랜치만 Jenkins의 multiple pipeline의 해당 브랜치의 파이프라인 작동
-ex) github의 recommend 브랜치 수정후 push -> Jenkins multiple pipeline에서 webhook 후
-recommend 브랜치 pipeline 작동 (ecr recommend repository로 새 tag를 만들고 push한다.)
+
 
 ## github 준비
 
@@ -71,3 +69,7 @@ github에서 repository만들고, 해당 리포지토리에 webhook추가
 ## 시작
 
 로컬에서 변경사항 수정후 git add, commit, push를 통해 github의 해당서비스의 브랜치로 커밋
+-> github에서 push된 브랜치만 Jenkins의 multiple pipeline의 해당 브랜치의 파이프라인 작동
+
+ex) recommend 브랜치 수정후 push -> Jenkins multiple pipeline로 webhook 후
+recommend 브랜치 pipeline 작동 (ecr recommend repository로 새 tag를 만들고 push한다.)
