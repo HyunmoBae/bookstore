@@ -1,5 +1,15 @@
 # jenkins/ArgoCD로 CI/CD 파이프라인 구축하기.
 
+## 구조
+
+1. 로컬에서 각 서비스 폴더에 git init을 통해 저장소 생성 후, git branch로 해당서비스 브랜치 생성 및 add,commit,push로 github에 저장
+   (add, commit을 해야 기본브랜치가 생긴다. 그 뒤에 서비스브랜치 생성 후 git switch [브랜치명])
+
+2. 각 서비스폴더에는 Jenkinsfile, Dockerfile, 서비스.py 등 파일이 존재하고 개발 후 bookstore로 push를 통해서 해당 브랜치에 update
+   (서비스폴더의 README.md에 태그에 따라 수정내용 작성)
+
+3. webhook을 통해 Jenkins로 요청을 보내고 Jenkins에서는 multiple pipeline의 수정된 브랜치의 pipeline 작동. (ECR의 해당 repository로 push)
+
 ## Jenkins 인스턴스 생성.
 
 t3.medium으로 인스턴스 생성후, 8080, 50000, 22번포트 열기.
@@ -58,12 +68,4 @@ github에서 repository만들고, 해당 리포지토리에 webhook추가
 
 - Payload URL : 젠킨스주소:8080/github-webhook/
 
-## 구조
 
-1. 로컬에서 각 서비스 폴더에 git init을 통해 저장소 생성 후, git branch로 해당서비스 브랜치 생성 및 add,commit,push로 github에 저장
-   (add, commit을 해야 기본브랜치가 생긴다. 그 뒤에 서비스브랜치 생성 후 git switch [브랜치명])
-
-2. 각 서비스폴더에는 Jenkinsfile, Dockerfile, 서비스.py 등 파일이 존재하고 개발 후 bookstore로 push를 통해서 해당 브랜치에 update
-   (서비스폴더의 README.md에 태그에 따라 수정내용 작성)
-
-3. webhook을 통해 Jenkins로 요청을 보내고 Jenkins에서는 multiple pipeline의 수정된 브랜치의 pipeline 작동. (ECR의 해당 repository로 push)
