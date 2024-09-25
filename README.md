@@ -14,10 +14,6 @@
 
 README.md 추가
 
-## 4
+## 4(latest)
 
 reservation.py, Dockerfile 수정
-
-## 6(latest)
-
-재배포
