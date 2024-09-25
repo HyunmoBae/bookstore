@@ -2,9 +2,9 @@ pipeline {
     agent any
     environment {
         GITNAME = 'HyunmoBae'
-        GITMAIL = 'tsi0520@naver.com'
+        GITEMAIL = 'tsi0520@naver.com'
         GITWEBADD = 'https://github.com/HyunmoBae/bookstore.git'
-        GITSSHADD = 'git@github.com:HyunmoBae/bookstore.git'
+        GITSSHADD = 'git@github.com:HyunmoBae/bookstore-eks-deploy.git'
         GITCREDENTIAL = 'git_cre'
         AWSCREDENTIAL = 'aws_cre'
         AWSECR = '178020491921.dkr.ecr.ap-northeast-2.amazonaws.com/reservation'
