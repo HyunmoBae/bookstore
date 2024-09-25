@@ -68,4 +68,6 @@ github에서 repository만들고, 해당 리포지토리에 webhook추가
 
 - Payload URL : 젠킨스주소:8080/github-webhook/
 
+## 시작
 
+로컬에서 변경사항 수정후 git add, commit, push를 통해 github의 해당서비스의 브랜치로 커밋
