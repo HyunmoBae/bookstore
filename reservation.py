@@ -194,7 +194,28 @@ def reservations():
         if isinstance(ses_result, str):  # 오류 메시지 처리
             return jsonify({"error": ses_result}), 500
 
-        return jsonify({"message": "Reservation created successfully, email notification sent"}), 201
+         # AWS Personalize 이벤트 로깅
+        try:
+            personalize_events = boto3.client('personalize-events', 'ap-northeast-2')
+
+            # 이벤트 전송
+            personalize_events.put_events(
+                trackingId='aaddbc37-bb02-4101-a5dd-d2fa9892f9bc',  # 생성된 ID
+                userId=customer,  # 사용자 ID
+                sessionId='session_id',  # 세션 ID (필요에 따라 설정)
+                eventList=[{
+                    'sentAt': timestamp,  # 기존 백엔드에서 생성된 TIMESTAMP 사용
+                    'eventType': 'click',  # 이벤트 유형
+                    'properties': json.dumps({
+                        'itemId': bookstore,  # 수집 데이터
+                        'eventValue': float(21)  # 이벤트 값
+                    })
+                }]
+            )
+        except Exception as e:
+            return jsonify({"error": f"Failed to log event: {str(e)}"}), 500
+
+        return jsonify({"message": "Reservation created successfully, email notification sent, and event logged"}), 201
 
 @app.route('/health', methods=['GET'])
 def health():
