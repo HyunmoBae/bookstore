@@ -150,7 +150,7 @@ def generate_time_slots(reservations):
     
     return time_slots
 
-@app.route('/reservations', methods=['GET', 'POST'])
+@app.route('/reservation', methods=['GET', 'POST'])
 def reservations():
     if request.method == 'GET':
         bookstore = request.args.get('bookstore')
