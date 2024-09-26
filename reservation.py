@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify
 import boto3
+from flask_cors import CORS  # CORS 모듈 추가
 from botocore.exceptions import BotoCoreError, ClientError
 from boto3.dynamodb.conditions import Key
 from datetime import datetime, timedelta
 import time
 
 app = Flask(__name__)
+
+CORS(app)  # 모든 도메인에서의 CORS 허용
 
 # DynamoDB 클라이언트 초기화
 dynamodb = boto3.resource('dynamodb', region_name='ap-northeast-2')
