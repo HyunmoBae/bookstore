@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
 import boto3
 from botocore.exceptions import ClientError
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 # DynamoDB 클라이언트 초기화
 dynamodb = boto3.resource('dynamodb', region_name='ap-northeast-2')
 table = dynamodb.Table('Reservations')
