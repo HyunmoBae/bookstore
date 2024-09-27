@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import boto3
 import re
 
 app = Flask(__name__)
+CORS(app)
 
 # Bedrock 클라이언트 초기화하기22
 bedrock_agent_runtime = boto3.client('bedrock-agent-runtime', region_name='ap-northeast-1')

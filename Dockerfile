@@ -13,4 +13,4 @@ COPY recommend.py .
 RUN pip install --no-cache-dir --upgrade pip
 
 # Install Python packages
-RUN pip install --no-cache-dir Flask boto3
+RUN pip install --no-cache-dir Flask boto3 flask-cors
