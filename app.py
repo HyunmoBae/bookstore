@@ -9,9 +9,9 @@ CORS(app)
 personalize_runtime = boto3.client('personalize-runtime', region_name='ap-northeast-2')
 
 # 두 캠페인의 ARN
-user_personalization_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/user-s'
-personalized_ranking_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/ranking-cam'
-popularity_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/popul-cam'
+#user_personalization_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/user-s'
+#personalized_ranking_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/ranking-cam'
+#popularity_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/popul-cam'
 
 # 기본 추천 아이템 (백업 데이터)
 default_popularity_recommendations = [
