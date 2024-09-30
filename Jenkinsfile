@@ -60,6 +60,15 @@ pipeline {
                     // S3에 파일 업로드
                     s3Upload(file: 'out', bucket: "${BUCKET}", path: '')
                 }
+                sh '''
+                    find ./out -type f -name '*.html' | while read HTMLFILE; do
+                        BASENAME=$(basename "$HTMLFILE")
+                        FILENAME="${BASENAME%.*}"
+                        if [ "$FILENAME" != "index" ]; then
+                            aws s3 cp s3://${S3_BUCKET}/${BASENAME} s3://${S3_BUCKET}/${FILENAME}
+                        fi
+                    done
+                '''
             }
             post {
                 failure {
