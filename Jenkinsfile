@@ -43,6 +43,7 @@ pipeline {
                 withAWS(region: "${REGION}", credentials: "${AWSCREDENTIAL}") {
                     // S3에 있는 파일들 삭제
                     s3Delete(bucket: "${BUCKET}", path: '')
+                    cfInvalidate(distribution:'E1HN3G0TOGIK6L', paths:['/*'], waitForCompletion: true) // Cloudfront 캐시 무효화
                 }
             }
             post {
