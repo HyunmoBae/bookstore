@@ -68,7 +68,7 @@ const MyPage: React.FC = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'payment':
-        return <p>결제내역 내용이 여기에 표시됩니다.</p>;
+        return <p>결제내역 내용이 여기에 표시됩니다..</p>;
       case 'reservations':
         return (
           <div className="p-4 w-full">
