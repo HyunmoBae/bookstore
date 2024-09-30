@@ -16,6 +16,7 @@ interface UseMyPageReturn {
   login: (username: string, password: string) => Promise<void>;
 }
 
+
 const useMyPage = (): UseMyPageReturn => {
   const { isLoggedIn, userInfo, logout, login } = useAuth() || {
     isLoggedIn: false,
@@ -97,7 +98,7 @@ const MyPage: React.FC = () => {
           </div>
         );
       case 'map':
-        return <p>별지도 내용이 여기에 표시됩니다.</p>;
+        return <p>별지도 내용이 여기에 표시됩니다..</p>;
       default:
         return null;
     }
@@ -112,7 +113,7 @@ const MyPage: React.FC = () => {
           username={userInfo ? userInfo.username : ""}
         />
         <main
-          className="flex min-h-screen flex-col wrap items-center"
+          className="flex min-h-screen flex-col wrap items-center bg-red-500"
           style={{ padding: "56px 0 0 0" }}
         >
           <div className="flex w-11/12 md:w-10/12 flex gap-x-4 mt-16 flex-col gap-4">
