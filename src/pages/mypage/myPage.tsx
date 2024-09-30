@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
-import { NavComponent } from "../components/nav";
-import { useAuth } from "../hooks/useAuth";
+import { NavComponent } from "../../components/nav";
+import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
 
 interface UserInfo {
