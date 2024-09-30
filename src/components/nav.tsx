@@ -37,7 +37,7 @@ export const NavComponent: React.FC<NavComponentProps> = ({
     <div className={className}>
       <nav className="bg-white dark:bg-gray-900 fixed z-20 top-2 md:w-[80%] w-[90%] pl-2 py-2 left-1/2 transform -translate-x-1/2 border-b border-gray-200 dark:border-gray-600 rounded-2xl shadow">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4">
-          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse hover:text-green-700">
             <FaBookReader className="text-2xl" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">linkedbook</span>
           </Link>
@@ -59,8 +59,8 @@ export const NavComponent: React.FC<NavComponentProps> = ({
             
             {isLoggedIn ? (
               <div className="relative object-center">
-                <button onClick={toggleUserMenu} className="text-3xl text-green-600 hover:text-green-700 focus:outline-none ml-4 my-auto">
-                  <LuUserCircle2 />
+                <button onClick={toggleUserMenu} className="text-3xl text-green-600 hover:text-green-700 focus:outline-none ml-4 py-auto">
+                  <LuUserCircle2 className=""/>
                 </button>
                 {isUserMenuOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
@@ -78,7 +78,7 @@ export const NavComponent: React.FC<NavComponentProps> = ({
             <button
               onClick={toggleMenu}
               type="button"
-              className="inline-flex items-center mt-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 ml-2"
+              className="inline-flex items-center w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 ml-2"
               aria-controls="navbar-default"
               aria-expanded={isMenuOpen}
             >
