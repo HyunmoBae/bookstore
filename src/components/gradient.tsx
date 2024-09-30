@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useEffect, useRef } from "react"
@@ -27,9 +28,9 @@ export const Gradient: React.FC<EnhancedGradientProps> = ({ className }) => {
     let animationFrameId: number
     let time = 0
 
-    // Increase the particle count for a richer effect
+    // Particle system
     const particles: Particle[] = []
-    const particleCount = 100 // Increased from 50 to 100
+    const particleCount = 50
 
     class Particle {
       x: number
@@ -38,46 +39,43 @@ export const Gradient: React.FC<EnhancedGradientProps> = ({ className }) => {
       speedX: number
       speedY: number
       color: string
-      ctx: CanvasRenderingContext2D
 
-      constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
-        this.ctx = ctx
+      constructor(canvas: HTMLCanvasElement) {
         this.x = Math.random() * canvas.width
         this.y = Math.random() * canvas.height
-        this.size = Math.random() * 5 + 1 // Dynamic particle size
+        this.size = Math.random() * 5 + 1
         this.speedX = Math.random() * 3 - 1.5
         this.speedY = Math.random() * 3 - 1.5
-        this.color = `hsl(${Math.random() * 360}, 100%, 50%)` // Full color spectrum
+        this.color = `hsl(${Math.random() * 60 + 30}, 70%, 70%)`
       }
 
-      update() {
+      update(canvas: HTMLCanvasElement) {
         this.x += this.speedX
         this.y += this.speedY
 
-        // Bounce off edges
-        if (this.x < 0 || this.x > this.ctx.canvas.width) this.speedX *= -1
-        if (this.y < 0 || this.y > this.ctx.canvas.height) this.speedY *= -1
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1
       }
 
-      draw() {
-        this.ctx.fillStyle = this.color
-        this.ctx.beginPath()
-        this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        this.ctx.fill()
+      draw(ctx: CanvasRenderingContext2D) {
+        ctx.fillStyle = this.color
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        ctx.fill()
       }
     }
 
-    // Create particles
     for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle(canvas, ctx))
+      particles.push(new Particle(canvas))
     }
 
     const drawScene = () => {
-      time += 0.01 // Adjusted for faster movement
+      time += 0.01
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       const width = canvas.width
       const height = canvas.height
 
-      // Create dynamic gradients
+      // Create multiple gradients that we'll blend
       const gradients = [
         ctx.createLinearGradient(0, 0, width, height),
         ctx.createLinearGradient(width, 0, 0, height),
@@ -86,10 +84,10 @@ export const Gradient: React.FC<EnhancedGradientProps> = ({ className }) => {
 
       // Dynamic color palette
       const colors = [
-        `hsl(${(time * 50) % 360}, 100%, 50%)`,
-        `hsl(${(time * 70) % 360}, 100%, 50%)`,
-        `hsl(${(time * 90) % 360}, 100%, 50%)`,
-        `hsl(${(time * 110) % 360}, 100%, 50%)`
+        `hsl(43, ${30 + Math.sin(time) * 20}%, ${85 + Math.sin(time * 0.7) * 10}%)`,
+        `hsl(30, ${40 + Math.cos(time * 1.1) * 20}%, ${75 + Math.sin(time * 0.8) * 10}%)`,
+        `hsl(60, ${35 + Math.sin(time * 1.2) * 20}%, ${80 + Math.cos(time * 0.9) * 10}%)`,
+        `hsl(20, ${45 + Math.cos(time * 0.9) * 20}%, ${70 + Math.sin(time * 1.1) * 10}%)`
       ]
 
       gradients.forEach((gradient, index) => {
@@ -101,7 +99,7 @@ export const Gradient: React.FC<EnhancedGradientProps> = ({ className }) => {
       // Clear the canvas
       ctx.clearRect(0, 0, width, height)
 
-      // Draw blended gradients
+      // Draw the blended gradients
       gradients.forEach((gradient, index) => {
         ctx.globalAlpha = 0.5 + 0.5 * Math.sin(time + index * Math.PI / gradients.length)
         ctx.fillStyle = gradient
@@ -112,8 +110,8 @@ export const Gradient: React.FC<EnhancedGradientProps> = ({ className }) => {
 
       // Update and draw particles
       particles.forEach(particle => {
-        particle.update()
-        particle.draw()
+        particle.update(canvas)
+        particle.draw(ctx)
       })
 
       animationFrameId = requestAnimationFrame(drawScene)
