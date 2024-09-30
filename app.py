@@ -8,7 +8,7 @@ CORS(app)
 # Amazon Personalize 클라이언트 생성
 personalize_runtime = boto3.client('personalize-runtime', region_name='ap-northeast-2')
 
-# 두 캠페인의 ARN
+# 두 캠페인의 ARNi
 #user_personalization_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/user-s'
 #personalized_ranking_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/ranking-cam'
 #popularity_campaign_arn = 'arn:aws:personalize:ap-northeast-2:178020491921:campaign/popul-cam'
