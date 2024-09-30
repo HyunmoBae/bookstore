@@ -1,10 +1,10 @@
 "use client";
 
-import { KakaoMap } from "./../components/kakao2";
-import { NavComponent } from "./../components/nav";
+import { KakaoMap } from "../components/kakao2";
+import { NavComponent } from "../components/nav";
 
 import React, { useState } from "react";
-import { useAuth } from './../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 
 
 
