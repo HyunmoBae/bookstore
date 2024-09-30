@@ -1,14 +1,14 @@
-import "./../app/globals.css";
+import "../app/globals.css";
 
 import { useState, useEffect, useCallback } from 'react'
 import { BiCalendar } from "react-icons/bi"
-import Search from "./../components/Search"
+import Search from "../components/Search"
 import { NavComponent } from "../components/nav";
 import Link from "next/link";
 import { useAuth } from '../hooks/useAuth';
 
-import BookstoreInfo from "./../components/bookstorelist"
-import ViewDetailPage from "./../components/viewDetail"
+import BookstoreInfo from "../components/bookstorelist"
+import ViewDetailPage from "../components/viewDetail"
 
 export interface Bookstore{
   ESNTL_ID: string;

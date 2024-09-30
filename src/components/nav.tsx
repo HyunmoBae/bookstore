@@ -49,7 +49,7 @@ export const NavComponent: React.FC<NavComponentProps> = ({
                   <a href="#" className="text-gray-900 hover:text-green-700 dark:text-white dark:hover:text-green-500">이용 방법</a>
                 </li>
                 <li>
-                  <Link href="/map/map" className="text-gray-900 hover:text-green-700 dark:text-white dark:hover:text-green-500">책방 지도</Link>
+                  <Link href="/map" className="text-gray-900 hover:text-green-700 dark:text-white dark:hover:text-green-500">책방 지도</Link>
                 </li>
                 <li>
                   <Link href="/app" className="text-gray-900 hover:text-green-700 dark:text-white dark:hover:text-green-500">책방 찾기</Link>
@@ -95,10 +95,10 @@ export const NavComponent: React.FC<NavComponentProps> = ({
                 <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">이용 방법</a>
               </li>
               <li>
-                <Link href="/map/map" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">책방 지도</Link>
+                <Link href="/map" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">책방 지도</Link>
               </li>
               <li>
-                <Link href="/app/index.html" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">책방 찾기</Link>
+                <Link href="/app" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">책방 찾기</Link>
               </li>
             </ul>
           </div>

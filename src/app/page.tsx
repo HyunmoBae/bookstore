@@ -12,7 +12,7 @@ import React, { useState, useEffect } from "react";
 import { AppProps } from "next/app";
 import { BiSearch } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bookstore } from "./../pages/app";
+import { Bookstore } from "../pages/app";
 import { BiCurrentLocation, BiChevronUp, BiChevronDown } from "react-icons/bi";
 import BookstoreListSkeleton from "./../components/BookstoreListSkeleton";
 import Gradient from "./../components/gradient";

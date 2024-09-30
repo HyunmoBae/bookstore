@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from 'next/router'
 
 import { KakaoMap } from "../components/kakao2";
 import { NavComponent } from "../components/nav";
@@ -9,6 +10,9 @@ import { useAuth } from '../hooks/useAuth';
 
 
 const Start: React.FC = () => {
+
+  const router = useRouter()
+  const { pid } = router.query
   const { isLoggedIn, userInfo, logout } = useAuth();
 
   const [level, setLevel] = useState<number>(3);
