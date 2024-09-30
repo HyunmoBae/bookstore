@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
-import { NavComponent } from "../../components/nav";
-import { useAuth } from "../../hooks/useAuth";
+import { NavComponent } from "../components/nav";
+import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
 
 interface UserInfo {
@@ -15,7 +15,6 @@ interface UseMyPageReturn {
   logout: () => void;
   login: (username: string, password: string) => Promise<void>;
 }
-
 
 const useMyPage = (): UseMyPageReturn => {
   const { isLoggedIn, userInfo, logout, login } = useAuth() || {
@@ -68,7 +67,7 @@ const MyPage: React.FC = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'payment':
-        return <p>결제내역 내용이 여기에 표시됩니다..</p>;
+        return <p>결제내역 내용이 여기에 표시됩니다.</p>;
       case 'reservations':
         return (
           <div className="p-4 w-full">
@@ -98,7 +97,7 @@ const MyPage: React.FC = () => {
           </div>
         );
       case 'map':
-        return <p>별지도 내용이 여기에 표시됩니다..</p>;
+        return <p>별지도 내용이 여기에 표시됩니다.</p>;
       default:
         return null;
     }
@@ -113,7 +112,7 @@ const MyPage: React.FC = () => {
           username={userInfo ? userInfo.username : ""}
         />
         <main
-          className="flex min-h-screen flex-col wrap items-center bg-red-500"
+          className="flex min-h-screen flex-col wrap items-center"
           style={{ padding: "56px 0 0 0" }}
         >
           <div className="flex w-11/12 md:w-10/12 flex gap-x-4 mt-16 flex-col gap-4">
