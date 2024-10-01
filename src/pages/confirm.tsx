@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import { CognitoUserPool, CognitoUser, ICognitoUserData } from 'amazon-cognito-identity-js';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import styles from '../app/confirm.module.css'; // CSS 모듈 가져오기
 
 const Confirm: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [code, setCode] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const router = useRouter();
 
   const poolData = {
@@ -19,7 +21,6 @@ const Confirm: React.FC = () => {
     e.preventDefault();
 
     const userPool = new CognitoUserPool(poolData);
-
     const userData: ICognitoUserData = {
       Username: username.toLowerCase(),
       Pool: userPool
@@ -42,41 +43,63 @@ const Confirm: React.FC = () => {
     } catch (err) {
       if (err instanceof Error) {
         if (err.name === 'ExpiredCodeException') {
-          alert('Confirmation code has expired. Please request a new one.');
+          setErrorMessage('Confirmation code has expired. Please request a new one.');
         } else {
-          alert(`Confirmation failed: ${err.message}`);
+          setErrorMessage(`Confirmation failed: ${err.message}`);
         }
       } else {
-        alert('An unexpected error occurred');
+        setErrorMessage('An unexpected error occurred');
       }
     }
   };
 
+  const handleResendCode = () => {
+    const userPool = new CognitoUserPool(poolData);
+    const userData: ICognitoUserData = {
+      Username: username.toLowerCase(),
+      Pool: userPool
+    };
+    const cognitoUser = new CognitoUser(userData);
+  
+    cognitoUser.resendConfirmationCode((err) => {
+      if (err) {
+        alert(`Error requesting new code: ${err.message}`); // 오류 메시지 추가
+      } else {
+        alert('A new confirmation code has been sent to your email.');
+      }
+    });
+  };
+  
+
   return (
-    <div>
-      <h1>Confirm Registration</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Confirm Registration</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username or Email:</label>
+          <label htmlFor="username" className={styles.label}>Username or Email:</label>
           <input
             type="text"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            className={styles.input}
           />
         </div>
         <div>
-          <label htmlFor="code">Confirmation Code:</label>
+          <label htmlFor="code" className={styles.label}>Confirmation Code:</label>
           <input
             type="text"
             id="code"
             value={code}
             onChange={(e) => setCode(e.target.value)}
             required
+            className={styles.input}
           />
         </div>
-        <button type="submit">Confirm</button>
+        {errorMessage && <div className={styles.error}>{errorMessage}</div>}
+        <button type="submit" className={styles.button}>Confirm</button>
+        <button type="button" onClick={handleResendCode} className={styles.button}>Resend Confirmation Code</button>
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
+import '../app/confirm.module.css';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');

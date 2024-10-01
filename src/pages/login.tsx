@@ -24,9 +24,8 @@ const LoginComponent: React.FC = () => {
   };
 
   const goToStart = async () => {
-    router.push("/login");
-    router.push("/");
-
+    router.push('/login');
+    router.push('/');
   };
 
   return (

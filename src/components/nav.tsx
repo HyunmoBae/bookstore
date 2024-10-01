@@ -36,7 +36,7 @@ export const NavComponent: React.FC<NavComponentProps> = ({
   return (
     <div className={className}>
       <nav className="bg-white dark:bg-gray-900 fixed z-20 top-2 md:w-[80%] w-[90%] pl-2 py-2 left-1/2 transform -translate-x-1/2 border-b border-gray-200 dark:border-gray-600 rounded-2xl shadow">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 ">
           <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse hover:text-green-700">
             <FaBookReader className="text-2xl" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">linkedbook</span>

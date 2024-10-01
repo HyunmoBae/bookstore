@@ -2,28 +2,37 @@
 import "./../app/globals.css";
 import Script from "next/script";
 import axios from "axios";
-import Link from "next/link";
 import { NavComponent } from "./../components/nav";
 import Image from "next/image";
 import book from "./../static/book.png";
 import movie from "./../static/movie.gif";
 import { useAuth } from "./../hooks/useAuth";
 import React, { useState, useEffect } from "react";
-import { AppProps } from "next/app";
 import { BiSearch } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bookstore } from "../pages/app";
-import { BiCurrentLocation, BiChevronUp, BiChevronDown } from "react-icons/bi";
 import BookstoreListSkeleton from "./../components/BookstoreListSkeleton";
 import Gradient from "./../components/gradient";
-
-
-
-
 
 const instance_ai = axios.create({
   baseURL: "https://www.taehyun35802.shop",
 });
+const getImage = async () => {
+  try {
+    const response = await fetch(
+      "https://bookstoreimage-bucket.s3.ap-northeast-2.amazonaws.com/bookstoreimage-3.jpeg"
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch image");
+    }
+    const blob = await response.blob(); // Blob 형태로 변환
+    const imageUrl = URL.createObjectURL(blob); // Blob URL 생성
+    return imageUrl; // Blob URL 반환
+  } catch (error) {
+    console.error("Error fetching image:", error);
+    return undefined;
+  }
+};
 
 const HomeClient: React.FC = () => {
   const { isLoggedIn, userInfo, logout } = useAuth();
@@ -34,6 +43,10 @@ const HomeClient: React.FC = () => {
   const [aiList, setAiList] = useState<any[]>([]);
   const [showBookstoreList, setShowBookstoreList] = useState<Boolean>(false); // Toggle state for bookstore list
   const [isLoading, setIsLoading] = useState(false);
+  const [personalizedRecommendations, setPersonalizedRecommendations] =
+    useState<any[]>([]);
+  const [isPersonalizeLoading, setIsPersonalizeLoading] = useState(false);
+  const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
 
   const categories = [
     "모임",
@@ -94,11 +107,14 @@ const HomeClient: React.FC = () => {
     "체험",
     "음식",
   ];
+
+  const imageUrl = getImage();
+
   const getFacilityInfo = (
-    FCLTY_NM: string
+    ID: string
   ): { name: string | null; description: string | null } => {
     const foundBookstore = bookstoreList.find(
-      (bookstore) => bookstore.FCLTY_NM === FCLTY_NM
+      (bookstore) => bookstore.ESNTL_ID === ID
     );
     return {
       name: foundBookstore ? foundBookstore.FCLTY_NM : null,
@@ -149,10 +165,33 @@ const HomeClient: React.FC = () => {
       } catch (error) {
         if (error) {
           console.error("Error data:", error);
-        } 
+        }
       }
     };
     AiSearch();
+  };
+
+  const PersonalizeUrl = "/get-recommendations";
+  const Personalize = async () => {
+    const personalizeparam = {
+      userId: userInfo ? userInfo.email : "사용자 이메일 주소",
+    };
+    setIsPersonalizeLoading(true);
+
+    try {
+      const response = await instance_ai.get(PersonalizeUrl, {
+        params: { userId: userInfo ? userInfo.email : "" },
+        headers: { "Content-Type": "application/json" },
+      });
+      const result = response.data["popularityRecommendations"];
+      console.log(result);
+      setPersonalizedRecommendations(result);
+      console.log(isPersonalizeLoading);
+    } catch (error) {
+      console.error("Error fetching personalized recommendations:", error);
+    } finally {
+      setIsPersonalizeLoading(false);
+    }
   };
 
   const buttonVariants = {
@@ -169,7 +208,7 @@ const HomeClient: React.FC = () => {
       opacity: 1,
       transition: {
         width: { type: "spring", stiffness: 100, damping: 15 },
-        opacity: { duration: 0.5 },
+        opacity: { duration: 0.3 },
       },
     },
     exit: {
@@ -196,6 +235,18 @@ const HomeClient: React.FC = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    Personalize();
+  }, []);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const imageUrl = await getImage();
+      setImageSrc(imageUrl);
+    };
+    fetchImage();
+  }, []);
+
   return (
     <>
       <Script id="jennifer-inline-script" strategy="lazyOnload">
@@ -210,7 +261,17 @@ const HomeClient: React.FC = () => {
           }(window, '402761ca'));
         `}
       </Script>
-
+      <Script id="suppress-hydration-warning">
+        {`
+            (function() {
+              var originalError = console.error;
+              console.error = function() {
+                if (arguments[0].includes('Extra attributes from the server')) return;
+                originalError.apply(console, arguments);
+              };
+            })();
+          `}
+      </Script>
       <style jsx>{`
         .shining-text {
           background: linear-gradient(
@@ -227,7 +288,7 @@ const HomeClient: React.FC = () => {
           -webkit-background-clip: text;
         }
       `}</style>
-      <main className="relative">
+      <main suppressHydrationWarning={true} className="relative">
         <div className="z-[999] fixed left-[10vw] right[10vw] justify-center w-full">
           <NavComponent
             className="mx-auto"
@@ -339,13 +400,12 @@ const HomeClient: React.FC = () => {
                                   <ul className="z-[100] divide-y divide-white py-4 px-4 w-full rounded-2xl max-h-[600px] overflow-y-auto box-extrude">
                                     {aiList.map((datas, index) => (
                                       <React.Fragment key={datas.FCLTY_NM}>
-                                        
-                                        <li className="p-2 pb-4 my-2 relative special-shadow-button bg-white rounded-2xl">
+                                        <li className="p-2 pb-4 my-2 relative special-shadow-button bg-white rounded-2xl overflow-hidden">
                                           <button
                                             className="flex"
                                             onClick={() => {}}
                                           >
-                                            <div className="flex text-left py-2 absolute right-4 top-[18px] hover:drop-shadow-[2px] active:shadow-inner hover:shadow-sm hover:shadow-green-600 px-4 rounded-2xl ml-auto text-bold text-green-600 hover:text-green-600 right-0 top-1/2">
+                                            <div className="flex text-left pb-2 absolute right-4 top-[18px] hover:drop-shadow-[2px] active:shadow-inner hover:shadow-sm hover:shadow-green-600 px-4 rounded-2xl ml-auto text-bold text-green-600 hover:text-green-600 right-0 top-1/2">
                                               위치 보기
                                             </div>
                                           </button>
@@ -396,20 +456,61 @@ const HomeClient: React.FC = () => {
               </main>
             </div>
           </div>
-          {/* <div className="mt-[100vh] w-full flex items-center bg-green-200 h-80 justify-center relative">
-            <div className="relative overflow-hidden h-full">
-              <h1 className="absolute object-center h-full top-0 left-0 right-0 bottom-0 text-center font-bold text-white bg-black bg-opacity-50 p-2">
-                최인아 책방
-              </h1>
-              <Image
-                src={movie}
-                alt="introduction"
-                width={1920}
-                height={500}
-                className="rounded-2xl"
-              />
+          <div
+            suppressHydrationWarning={true}
+            className="mt-[100vh] flex items-center justify-center relative"
+          >
+            <div className="relative h-full flex justify-center">
+              {isLoggedIn && (
+                <div className="w-full p-4 flex flex-col items-center">
+                  {isPersonalizeLoading ? (
+                    <p>추천 목록을 불러오는 중...</p>
+                  ) : personalizedRecommendations.length > 0 ? (
+                    <div className="text-center">
+                      <h1 className="mb-4">개인화된 책방 추천</h1>
+
+                      <ul className="flex overflow-x-auto w-full gap-4 mt-12">
+                        {personalizedRecommendations.map(
+                          (recommendation, index) => {
+                            const facilityInfo =
+                              getFacilityInfo(recommendation);
+
+                            return (
+                              <li
+                                key={index}
+                                className="pb-4 w-[300px] text-center"
+                              >
+                                {imageSrc ? (
+                                  <Image
+                                    src={imageSrc}
+                                    alt="s3url"
+                                    width="500"
+                                    height="300"
+                                    className="card-extrude rounded-2xl h-60"
+                                  />
+                                ) : (
+                                  <p>Loading image...</p>
+                                )}
+                                <h3 className="text-lg font-semibold">
+                                  {facilityInfo.name || "Unknown Facility"}
+                                </h3>
+                                <p className="text-sm text-gray-600 px-2">
+                                  {facilityInfo.description ||
+                                    "No description available"}
+                                </p>
+                              </li>
+                            );
+                          }
+                        )}
+                      </ul>
+                    </div>
+                  ) : (
+                    <p>개인화된 추천 목록이 없습니다.</p>
+                  )}
+                </div>
+              )}
             </div>
-          </div> */}
+          </div>
         </div>
       </main>
     </>
