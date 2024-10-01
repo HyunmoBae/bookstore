@@ -440,13 +440,7 @@ const HomeClient: React.FC = () => {
                               height={400}
                               className="relative aspect-auto w-[35vw] rounded-2xl z-[20]"
                             />
-                            {/* <Image
-                              src={book}
-                              alt="Book recommendation"
-                              width={500}
-                              height={400}
-                              className="absolute aspect-auto w-[34vw] rounded-2xl saturate-150 blur-xl z-[10]"
-                            /> */}
+
                           </div>
                         )}
                       </div>
@@ -465,7 +459,7 @@ const HomeClient: React.FC = () => {
                 <div className="w-full p-4 flex flex-col items-center">
                   {isPersonalizeLoading ? (
                     <p>추천 목록을 불러오는 중...</p>
-                  ) : personalizedRecommendations.length > 0 ? (
+                  ) : personalizedRecommendations ? (
                     <div className="text-center">
                       <h1 className="mb-4">개인화된 책방 추천</h1>
 
