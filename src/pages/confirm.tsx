@@ -100,7 +100,7 @@ const Confirm: React.FC = () => {
         {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         <button type="submit" className={styles.button}>Confirm</button>
         <button type="button" onClick={handleResendCode} className={styles.button}>Resend Confirmation Code</button>
-      </form>
+      </form>   
     </div>
   );
 };

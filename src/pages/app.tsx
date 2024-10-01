@@ -90,7 +90,7 @@ const App: React.FC = () => {
   return (
     <>
       
-<div className="App ">
+
 <NavComponent className="fixed z-[9999] mt-[-62px]" isLoggedIn={isLoggedIn} username={userInfo ? userInfo.username : ''} logout={logout}/>
     <div className="w-[95%] md:w-[80%] mx-auto mt-[62px] font-thin">
       <Search query={query}
@@ -108,7 +108,7 @@ const App: React.FC = () => {
         ))}
       </ul>
     </div>
-    </div>
+    
     </>
   );
 }

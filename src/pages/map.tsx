@@ -19,9 +19,9 @@ const Start: React.FC = () => {
 
   return (
     <>
-      <NavComponent className="fixed z-50" isLoggedIn={isLoggedIn} logout={logout} username={userInfo ? userInfo.username : ''}/>
       <main className="w-full flex flex-col items-center justify-center mt-8 bg-white">
-        
+      <NavComponent className="fixed z-50" isLoggedIn={isLoggedIn} logout={logout} username={userInfo ? userInfo.username : ''}/>
+
       <KakaoMap className="w-[100vw] h-[97vh]" bookstore={null} latitude={0} longitude={0} name=""/>
       </main>
     </>

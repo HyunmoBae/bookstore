@@ -271,7 +271,7 @@ export const KakaoMap: React.FC<KakaoMapProps> = ({ className, latitude, longitu
         </button>
         <div ref={mapRef} className={className}></div>
     
-        <div className="absolute container flex flex-col mx-auto ml-3 mt-3 font-thin z-50">
+        <div className="absolute container flex flex-col mx-auto ml-3 mt-3 font-thin z-10">
           <div className="flex"> 
             <Search
               query={query}
