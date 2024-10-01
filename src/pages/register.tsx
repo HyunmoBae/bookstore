@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
-import '../app/confirm.module.css';
+import styles from '../app/register.module.css'; // CSS 모듈 가져오기
+import { useRouter } from 'next/router';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -9,15 +10,26 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isClient, setIsClient] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
-    setIsClient(true); // Confirm that we are on the client
+    setIsClient(true);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(''); // 이전 에러 메시지 초기화
+
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+
+    // 이메일 형식 유효성 검사
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage("Invalid email format");
       return;
     }
 
@@ -37,48 +49,75 @@ const Register: React.FC = () => {
 
     userPool.signUp(username, password, attributeList, [], (err, result) => {
       if (err) {
-        alert(err.message || JSON.stringify(err));
+        setErrorMessage(err.message || JSON.stringify(err));
         return;
       }
-      alert('Registration successful. Please check your email for confirmation code.');
+      alert('Registration successful. Please check your email for the confirmation code.');
       if (result && isClient) {
-        window.location.href = "/confirm"; // Redirect after successful registration
+        router.push("/confirm"); // Next.js 라우팅을 사용한 리디렉션
       }
     });
   };
 
-  // Conditional rendering based on isClient
   if (!isClient) {
-    return null; // Or a loading spinner/message
+    return null; // 클라이언트에서만 렌더링
   }
 
   return (
-    <div>
-      <h1>BOOKSTORE FOR YOU</h1>
-      <h2>Register!</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className={styles.container}>
+      <h1 className={styles.title}>BOOKSTORE FOR YOU</h1>
+      <h2 className={styles.subtitle}>Register!</h2>
+      {errorMessage && <div className={styles.error}>{errorMessage}</div>} {/* 에러 메시지 표시 */}
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label htmlFor="username" className={styles.label}>
           Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            className={styles.input}
+          />
         </label>
-        <br />
-        <label>
+        <label htmlFor="email" className={styles.label}>
           Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className={styles.input}
+          />
         </label>
-        <br />
-        <label>
+        <label htmlFor="password" className={styles.label}>
           Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className={styles.input}
+          />
         </label>
-        <br />
-        <label>
+        <label htmlFor="confirmPassword" className={styles.label}>
           Confirm Password:
-          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+          <input
+            id="confirmPassword"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            className={styles.input}
+          />
         </label>
-        <br />
-        <button type="submit">Register</button>
+        <button type="submit" className={styles.button}>Register</button>
       </form>
+      <p className={styles.link}>
+        Already have an account? <Link href="/login">Log in here</Link>
+      </p>
     </div>
   );
 };
