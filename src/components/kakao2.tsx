@@ -92,7 +92,7 @@ export const KakaoMap: React.FC<KakaoMapProps> = ({ className, latitude, longitu
       const loadKakaoMap = () => {
         const kakaoMapScript = document.createElement("script");
         kakaoMapScript.async = false;
-        kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=9b2ae1f521a560a249e877c85b8a54e2&libraries=services,clusterer&autoload=false`;
+        kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=c4e6698263a1f6e60d1a4d9ca06fc98a&libraries=services,clusterer&autoload=false`;
         document.head.appendChild(kakaoMapScript);
       
         const onLoadKakaoAPI = () => {
@@ -261,7 +261,7 @@ export const KakaoMap: React.FC<KakaoMapProps> = ({ className, latitude, longitu
     };
 
     return (
-      <div className="{className}">
+      <div>
       <main className="w-full flex flex-col items-left z-10">
         <button
           onClick={goToUserLocation}

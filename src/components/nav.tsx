@@ -2,8 +2,7 @@
 import "./../app/globals.css";
 
 import Link from "next/link";
-import { useState } from "react";
-import React from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { LuUserCircle2 } from "react-icons/lu";
 import { FaBookReader } from "react-icons/fa";
 import { useRouter } from 'next/navigation'; // Updated import
@@ -20,10 +19,27 @@ export const NavComponent: React.FC<NavComponentProps> = ({
   className,
 }) => {
   const { isLoggedIn, userInfo, logout } = useAuth();
-
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isUserMenuOpen, setUserMenuOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false); // State to manage modal visibility
+  const modalRef = useRef(null); // Reference to the modal
+  const videoRef = useRef(null); // Reference to the video
+
+
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleUserMenu = () => setUserMenuOpen(!isUserMenuOpen);
@@ -92,7 +108,36 @@ export const NavComponent: React.FC<NavComponentProps> = ({
           <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:hidden`} id="navbar-default">
             <ul className="flex flex-col font-medium p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
               <li>
-                <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">이용 방법</a>
+
+              <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+      >
+        이용 방법
+      </button>
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-5 rounded-2xl shadow-lg" ref={modalRef}>
+            <video
+              ref={videoRef}
+              suppressHydrationWarning={true}
+              src={
+                "https://usingmethodvideo.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95.mp4"
+              }
+              width={500}
+              height={400}
+              loop
+              autoPlay
+              muted
+              preload="auto"
+              className="w-full h-auto rounded-2xl"
+            />
+          </div>
+        </div>
+      )}
+
+
+                {/* <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">이용 방법</a> */}
               </li>
               <li>
                 <Link href="/map" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">책방 지도</Link>

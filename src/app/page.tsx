@@ -7,12 +7,14 @@ import Image from "next/image";
 import book from "./../static/book.png";
 import movie from "./../static/movie.gif";
 import { useAuth } from "./../hooks/useAuth";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BiSearch } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bookstore } from "../pages/app";
 import BookstoreListSkeleton from "./../components/BookstoreListSkeleton";
 import Gradient from "./../components/gradient";
+// import HowTo from "../static/";
+// import Video from "next/video"; // 비디오 컴포넌트를 사용하기 위해 import
 
 const instance_ai = axios.create({
   baseURL: "https://www.taehyun35802.shop",
@@ -47,6 +49,8 @@ const HomeClient: React.FC = () => {
     useState<any[]>([]);
   const [isPersonalizeLoading, setIsPersonalizeLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const categories = [
     "모임",
@@ -247,6 +251,14 @@ const HomeClient: React.FC = () => {
     fetchImage();
   }, []);
 
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load(); // Ensure the video is loaded
+      videoRef.current.play(); // Attempt to play the video automatically
+    }
+  }, []);
+
   return (
     <>
       <Script id="jennifer-inline-script" strategy="lazyOnload">
@@ -433,14 +445,30 @@ const HomeClient: React.FC = () => {
 
                         {!showBookstoreList && (
                           <div className="hidden md:block">
-                            <Image
+                            {/* <Image
                               src={book}
                               alt="Book recommendation"
                               width={500}
                               height={400}
                               className="relative aspect-auto w-[35vw] rounded-2xl z-[20]"
-                            />
-
+                            /> */}
+                            <div>
+                              <video
+                              ref={videoRef}
+                                suppressHydrationWarning={true}
+                                src={
+                                  "https://usingmethodvideo.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95.mp4"
+                                }
+                                width={500}
+                                height={400}
+                                // controls
+                                loop
+                                autoPlay
+                                muted
+                                preload="auto"
+                                className="relative aspect-auto w-[35vw] rounded-2xl z-[20]"
+                              />
+                            </div>
                           </div>
                         )}
                       </div>
