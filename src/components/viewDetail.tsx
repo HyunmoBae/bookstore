@@ -238,12 +238,18 @@ const ViewDetailPage: React.FC<ViewDetailPageProps> = ({
               <div>
                 <KakaoMap
                   bookstore={bookstores}
-                  className="h-[60vh] sm:h-[60vh] md:h-[70vh] lg:h-[70vh]"
+                  className="w-full h-[60vh] sm:h-[60vh] md:h-[70vh] lg:h-[70vh]"
                   latitude={bookstores.FCLTY_LA}
                   longitude={bookstores.FCLTY_LO}
                   name={bookstores.FCLTY_NM}
                 />
               </div>
+
+
+
+
+
+
             )}
           </div>
         </div>
