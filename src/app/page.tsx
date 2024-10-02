@@ -13,6 +13,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Bookstore } from "../pages/app";
 import BookstoreListSkeleton from "./../components/BookstoreListSkeleton";
 import Gradient from "./../components/gradient";
+import NetflixStyleSlider from '../components/NetflixStyleSlider';
+
+
+
 // import HowTo from "../static/";
 // import Video from "next/video"; // 비디오 컴포넌트를 사용하기 위해 import
 
@@ -176,6 +180,7 @@ const HomeClient: React.FC = () => {
   };
 
   const PersonalizeUrl = "/get-recommendations";
+  
   const Personalize = async () => {
     const personalizeparam = {
       userId: userInfo ? userInfo.email : "사용자 이메일 주소",
@@ -191,6 +196,7 @@ const HomeClient: React.FC = () => {
       console.log(result);
       setPersonalizedRecommendations(result);
       console.log(isPersonalizeLoading);
+      console.log('here', result)
     } catch (error) {
       console.error("Error fetching personalized recommendations:", error);
     } finally {
@@ -249,6 +255,7 @@ const HomeClient: React.FC = () => {
       setImageSrc(imageUrl);
     };
     fetchImage();
+    
   }, []);
 
 
@@ -258,6 +265,8 @@ const HomeClient: React.FC = () => {
       videoRef.current.play(); // Attempt to play the video automatically
     }
   }, []);
+
+
 
   return (
     <>
@@ -466,7 +475,7 @@ const HomeClient: React.FC = () => {
                                 autoPlay
                                 muted
                                 preload="auto"
-                                className="relative aspect-auto w-[35vw] rounded-2xl z-[20]"
+                                className="relative aspect-auto rounded-2xl z-[20]"
                               />
                             </div>
                           </div>
@@ -482,8 +491,8 @@ const HomeClient: React.FC = () => {
             suppressHydrationWarning={true}
             className="mt-[100vh] flex items-center justify-center relative"
           >
-            <div className="relative h-full flex justify-center">
-              {isLoggedIn && (
+            <div className="relative h-full flex justify-center mb-40">
+              {/* {isLoggedIn && (
                 <div className="w-full p-4 flex flex-col items-center">
                   {isPersonalizeLoading ? (
                     <p>추천 목록을 불러오는 중...</p>
@@ -529,8 +538,17 @@ const HomeClient: React.FC = () => {
                   ) : (
                     <p>개인화된 추천 목록이 없습니다.</p>
                   )}
+                
+                
+                
+                
+
                 </div>
-              )}
+              )} */}
+                <NetflixStyleSlider personalizedRecommendations={personalizedRecommendations} imageSrc={imageSrc}/>
+
+
+
             </div>
           </div>
         </div>

@@ -311,3 +311,10 @@ body {
   background: linear-gradient(145deg, #ffffff, #f2f2f2);
   box-shadow: 8px 8px 16px #d6d6d6, -8px -8px 16px #ffffff;
 }
+
+.fixed.inset-0 {
+  pointer-events: auto; /* Ensure clicks go through to modal content */
+}
+button {
+  pointer-events: auto; /* Ensure button receives click events */
+}

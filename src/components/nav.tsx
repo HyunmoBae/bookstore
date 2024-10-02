@@ -54,7 +54,10 @@ export const NavComponent: React.FC<NavComponentProps> = ({
       <nav className="bg-white dark:bg-gray-900 fixed z-20 top-2 md:w-[80%] w-[90%] pl-2 py-2 left-1/2 transform -translate-x-1/2 border-b border-gray-200 dark:border-gray-600 rounded-2xl shadow">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 ">
         {isOpen && (
-        <div className="fixed inset-0 top-[60px] items-center justify-center bg-black bg-opacity-50 z-[200]">
+                  <div
+                  className={`fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center z-10 ${className} dark:bg-black dark:text-white`}
+                >
+        <div className="fixed inset-0 top-[60px] items-center justify-center bg-black bg-opacity-50 z-[200] bg-white">
           <div className="bg-white p-5 rounded-2xl shadow-lg" ref={modalRef}>
             <video
               ref={videoRef}
@@ -65,12 +68,14 @@ export const NavComponent: React.FC<NavComponentProps> = ({
               width={500}
               height={400}
               loop
+              controls
               autoPlay
               muted
               preload="auto"
               className="w-full h-auto rounded-2xl z-[200]"
             />
           </div>
+        </div>
         </div>
       )}
 
@@ -129,13 +134,13 @@ export const NavComponent: React.FC<NavComponentProps> = ({
           
           <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:hidden`} id="navbar-default">
             <ul className="flex flex-col font-medium p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-              <li className="block">
+              <li>
 
               <button
         onClick={() => setIsOpen(!isOpen)
           
         }
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        className="flex w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
       >
         이용 방법
       </button>
@@ -145,7 +150,7 @@ export const NavComponent: React.FC<NavComponentProps> = ({
                 {/* <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">이용 방법</a> */}
               </li>
               <li>
-                <Link href="/map" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">책방 지도</Link>
+                <Link href="/map" className="block w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">책방 지도</Link>
               </li>
               <li>
                 <Link href="/app" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">책방 찾기</Link>
