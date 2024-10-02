@@ -3,12 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const VideoModal = () => {
   const [isOpen, setIsOpen] = useState(false); // State to manage modal visibility
-  const modalRef = useRef(null); // Reference to the modal
+  const modalRef = useRef<HTMLDivElement>(null); // Reference to the modal
   const videoRef = useRef(null); // Reference to the video
 
   // Function to close modal when clicking outside the video
-  const handleClickOutside = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
+  const handleClickOutside = (event:MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
   };
