@@ -53,6 +53,27 @@ export const NavComponent: React.FC<NavComponentProps> = ({
     <div className={className}>
       <nav className="bg-white dark:bg-gray-900 fixed z-20 top-2 md:w-[80%] w-[90%] pl-2 py-2 left-1/2 transform -translate-x-1/2 border-b border-gray-200 dark:border-gray-600 rounded-2xl shadow">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 ">
+        {isOpen && (
+        <div className="fixed inset-0 top-[60px] items-center justify-center bg-black bg-opacity-50 z-[200]">
+          <div className="bg-white p-5 rounded-2xl shadow-lg" ref={modalRef}>
+            <video
+              ref={videoRef}
+              suppressHydrationWarning={true}
+              src={
+                "https://usingmethodvideo.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95.mp4"
+              }
+              width={500}
+              height={400}
+              loop
+              autoPlay
+              muted
+              preload="auto"
+              className="w-full h-auto rounded-2xl z-[200]"
+            />
+          </div>
+        </div>
+      )}
+
           <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse hover:text-green-700">
             <FaBookReader className="text-2xl" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">linkedbook</span>
@@ -62,7 +83,8 @@ export const NavComponent: React.FC<NavComponentProps> = ({
             <div className="hidden md:flex md:items-center md:space-x-8">
               <ul className="flex flex-row font-medium space-x-8">
                 <li>
-                  <a href="#" className="text-gray-900 hover:text-green-700 dark:text-white dark:hover:text-green-500">이용 방법</a>
+                <button
+        onClick={() => setIsOpen(!isOpen)} className="text-gray-900 hover:text-green-700 dark:text-white dark:hover:text-green-500">이용 방법</button>
                 </li>
                 <li>
                   <Link href="/map" className="text-gray-900 hover:text-green-700 dark:text-white dark:hover:text-green-500">책방 지도</Link>
@@ -107,34 +129,17 @@ export const NavComponent: React.FC<NavComponentProps> = ({
           
           <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full md:hidden`} id="navbar-default">
             <ul className="flex flex-col font-medium p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-              <li>
+              <li className="block">
 
               <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(!isOpen)
+          
+        }
         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
       >
         이용 방법
       </button>
-      {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-5 rounded-2xl shadow-lg" ref={modalRef}>
-            <video
-              ref={videoRef}
-              suppressHydrationWarning={true}
-              src={
-                "https://usingmethodvideo.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95.mp4"
-              }
-              width={500}
-              height={400}
-              loop
-              autoPlay
-              muted
-              preload="auto"
-              className="w-full h-auto rounded-2xl"
-            />
-          </div>
-        </div>
-      )}
+
 
 
                 {/* <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">이용 방법</a> */}
