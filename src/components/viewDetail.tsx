@@ -238,7 +238,7 @@ const ViewDetailPage: React.FC<ViewDetailPageProps> = ({
               <div>
                 <KakaoMap
                   bookstore={bookstores}
-                  className=""
+                  className="h-[60vh] sm:h-[60vh] md:h-[70vh] lg:h-[70vh]"
                   latitude={bookstores.FCLTY_LA}
                   longitude={bookstores.FCLTY_LO}
                   name={bookstores.FCLTY_NM}
@@ -250,13 +250,13 @@ const ViewDetailPage: React.FC<ViewDetailPageProps> = ({
       )}
       <button
         onClick={() => openModal("reservation")}
-        className="p-2 border rounded-2xl"
+        className="p-2 border rounded-2xl whitespace-nowrap "
       >
         예약하기
       </button>
       <button
         onClick={() => openModal("map")}
-        className="p-2 border rounded-2xl"
+        className="p-2 border rounded-2xl whitespace-nowrap"
       >
         지도보기
       </button>

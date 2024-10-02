@@ -453,7 +453,7 @@ const HomeClient: React.FC = () => {
                         </div>
 
                         {!showBookstoreList && (
-                          <div className="hidden md:block">
+                          <div className="hidden md:block md:shadow-xl rounded-2xl">
                             {/* <Image
                               src={book}
                               alt="Book recommendation"
