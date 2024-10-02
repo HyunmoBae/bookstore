@@ -7,7 +7,10 @@ import { useSwipeable } from 'react-swipeable';
   interface NetflixStyleSliderProps {
     personalizedRecommendations:Array<string>;
     imageSrc?: string;
+    preventDefaultTouchmoveEvent?: boolean; // 필요 시 추가
+
   }
+  
 
   const NetflixStyleSlider: React.FC<NetflixStyleSliderProps> = ({ personalizedRecommendations, imageSrc }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -68,7 +71,7 @@ import { useSwipeable } from 'react-swipeable';
       setSwipeOffset(0);
     },
     trackMouse: true,
-    preventDefaultTouchmoveEvent: true,
+    // preventDefaultTouchmoveEvent: true,
   });
 
 
