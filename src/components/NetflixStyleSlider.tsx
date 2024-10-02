@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Bookstore } from "../pages/app";
 import { useSwipeable } from 'react-swipeable';
 
@@ -106,14 +106,14 @@ import { useSwipeable } from 'react-swipeable';
           className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white p-2 rounded-full"
           disabled={currentIndex === 0}
         >
-          <ChevronLeft size={24} /> 
+          <FaArrowLeft size={24} /> 
         </button>
         <button
           onClick={nextSlide}
           className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white p-2 rounded-full"
           disabled={currentIndex === personalizedRecommendations.length - 1}
         >
-          <ChevronRight size={24} />
+          <FaArrowRight size={24} />
         </button>
         <div
           ref={sliderRef}
