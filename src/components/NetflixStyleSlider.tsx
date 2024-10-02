@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Bookstore } from "../pages/app";
+import { useSwipeable } from 'react-swipeable';
 
 
   interface NetflixStyleSliderProps {
@@ -12,7 +13,8 @@ import { Bookstore } from "../pages/app";
     const [currentIndex, setCurrentIndex] = useState(0);
     const [bookstoreList, setBookstoreList] = useState<Bookstore[]>([]);
     const [showBookstoreList, setShowBookstoreList] = useState<Boolean>(false); // Toggle state for bookstore list
-
+    const [isSwiping, setIsSwiping] = useState(false);
+    const [swipeOffset, setSwipeOffset] = useState(0);
     const sliderRef = useRef<HTMLDivElement | null>(null);
 
 
@@ -46,6 +48,31 @@ import { Bookstore } from "../pages/app";
 
 
 
+  const handlers = useSwipeable({
+    onSwiping: (eventData) => {
+      setIsSwiping(true);
+      setSwipeOffset(eventData.deltaX);
+    },
+    onSwipedLeft: () => {
+      setIsSwiping(false);
+      setSwipeOffset(0);
+      nextSlide();
+    },
+    onSwipedRight: () => {
+      setIsSwiping(false);
+      setSwipeOffset(0);
+      prevSlide();
+    },
+    onSwiped: () => {
+      setIsSwiping(false);
+      setSwipeOffset(0);
+    },
+    trackMouse: true,
+    preventDefaultTouchmoveEvent: true,
+  });
+
+
+
     useEffect(() => {
     const fetchData = async () => {
       try {
@@ -62,20 +89,21 @@ import { Bookstore } from "../pages/app";
 
   useEffect(() => {
     if (sliderRef.current) {
-      sliderRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
+        const offset = isSwiping ? swipeOffset : 0;
+        sliderRef.current.style.transform = `translateX(calc(-${currentIndex * 100}% + ${offset}px))`;
     }
-  }, [currentIndex]);
+}, [currentIndex, isSwiping, swipeOffset]);
 
   return (
     <div className="relative overflow-hidden  mx-auto w-[90%] md:w-[80%]" data-uia="nmhp-top-10">
       <h1 className="">개인화된 책방 추천</h1>
-      <div className="relative">
+      <div className="relative" {...handlers}>
         <button
           onClick={prevSlide}
           className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white p-2 rounded-full"
           disabled={currentIndex === 0}
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={24} /> 
         </button>
         <button
           onClick={nextSlide}
@@ -95,7 +123,7 @@ import { Bookstore } from "../pages/app";
                               getFacilityInfo(id);
             return (
               <div key={index} className="flex-shrink-0 px-2">
-                <div className="relative rounded-2xl overflow-hidden">
+                <div className="relative rounded-2xl overflow-hidden pointer-events-none">
                   <img
                     src={imageSrc || 'defaultImage.jpg'}
                     alt={facilityInfo.name || "책방 이미지"}
