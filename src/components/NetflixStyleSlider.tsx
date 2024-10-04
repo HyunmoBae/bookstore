@@ -130,13 +130,13 @@ import { useSwipeable } from 'react-swipeable';
                   <img
                     src={imageSrc || 'defaultImage.jpg'}
                     alt={facilityInfo.name || "책방 이미지"}
-                    className="w-[400px] h-[300px] object-cover "
+                    className="w-[22vw] h-[18vw] object-cover "
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent min-h-32 pt-4 pb-4 px-4">
                     <h3 className="text-white text-xl font-bold">
                       {facilityInfo.name || "Unknown Facility"}
                     </h3>
-                    <p className="text-white text-sm mt-2">
+                    <p className="flex text-white text-sm mt-1">
                       {facilityInfo.description || "No description available"}
                     </p>
                   </div>

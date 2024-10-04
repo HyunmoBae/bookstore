@@ -244,12 +244,6 @@ const ViewDetailPage: React.FC<ViewDetailPageProps> = ({
                   name={bookstores.FCLTY_NM}
                 />
               </div>
-
-
-
-
-
-
             )}
           </div>
         </div>

@@ -63,7 +63,7 @@ export const NavComponent: React.FC<NavComponentProps> = ({
               ref={videoRef}
               suppressHydrationWarning={true}
               src={
-                "https://usingmethodvideo.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95.mp4"
+                "https://usingmethodvideo.s3.ap-northeast-2.amazonaws.com/HowTo.mp4"
               }
               width={500}
               height={400}

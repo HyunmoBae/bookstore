@@ -338,7 +338,7 @@ const HomeClient: React.FC = () => {
                           <AnimatePresence mode="wait">
                             {!aiClick ? (
                               <motion.button
-                                className="bookButton w-60 py-3 font-semibold text-xl md:left-0 ml-auto mr-auto left-0 right-0" // Ensure absolute positioning
+                                className=" md:shadow-lg bookButton w-60 py-3 font-semibold text-xl md:left-0 ml-auto mr-auto left-0 right-0" // Ensure absolute positioning
                                 onClick={() => setAiClick(true)}
                                 variants={buttonVariants}
                                 initial="initial"
@@ -404,7 +404,7 @@ const HomeClient: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="relative w-full md:pt-0 mt-40 md:w-1/2 w-full h-auto px-4 justify-center md:my-4 lg:my-12 flex rounded-2xl">
+                      <div className="relative w-full md:pt-0 mt-40 md:w-1/2 w-full h-auto pl-4 justify-center md:my-4 lg:my-12 flex rounded-2xl">
                         <div className="rounded-2xl">
                           {/* Bookstore List */}
 
@@ -453,7 +453,7 @@ const HomeClient: React.FC = () => {
                         </div>
 
                         {!showBookstoreList && (
-                          <div className="hidden md:block md:shadow-xl rounded-2xl">
+                          <div className="hidden md:block md:shadow-xl border-white rounded-2xl">
                             {/* <Image
                               src={book}
                               alt="Book recommendation"
@@ -466,7 +466,7 @@ const HomeClient: React.FC = () => {
                               ref={videoRef}
                                 suppressHydrationWarning={true}
                                 src={
-                                  "https://usingmethodvideo.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9A%A9%EB%B0%A9%EB%B2%95.mp4"
+                                  "https://usingmethodvideo.s3.ap-northeast-2.amazonaws.com/HowTo.mp4"
                                 }
                                 width={500}
                                 height={400}
@@ -491,7 +491,7 @@ const HomeClient: React.FC = () => {
             suppressHydrationWarning={true}
             className="mt-[100vh] flex items-center justify-center relative"
           >
-            <div className="relative h-full flex justify-center mb-40">
+            <div className="relative h-full flex justify-center pb-8 mb-28 bg-white bg-opacity-50">
               {/* {isLoggedIn && (
                 <div className="w-full p-4 flex flex-col items-center">
                   {isPersonalizeLoading ? (
